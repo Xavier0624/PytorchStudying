@@ -4,15 +4,25 @@ import torch.nn as nn
 import torch.optim as optim
 from torchvision import models, transforms
 from PIL import Image
+
+import os
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'  # 临时绕过 OpenMP 冲突
+
+import matplotlib
+matplotlib.use('TkAgg')  # 强制使用稳定后端
+
 import matplotlib.pyplot as plt
+
 
 # 设备设置
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(torch.cuda.is_available())
+print(torch.version.cuda)
 print(f"Using device: {device}")
 
 # --- 1. 参数配置 ---
 # 核心参数
-content_img_path = "img/img.png" # 替换你的内容图路径
+content_img_path = "img/Capture001.png" # 替换你的内容图路径
 style_img_path = "img/img_1.png"    # 替换你的风格图路径
 image_size = 512   # 统一处理的图片尺寸
 num_steps = 1000   # 迭代次数
